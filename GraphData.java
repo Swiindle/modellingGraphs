@@ -1,11 +1,14 @@
-import java.lang.Math; 
+import java.lang.Math;
 public class GraphData
 {
+    // instantiation
     private Node[] node = new Node[10];
     private Edge[] edge = new Edge[10];
+    // instance variables
     int numberNodes = 0;
     int numberEdges = 0;
     int maxNodes = 10;
+    // methods
     public void addNode(int n)
     {
         node[n] = new Node(n);
@@ -14,21 +17,27 @@ public class GraphData
     }/*
     public void removeNode(int n)
     {
-        
-    }
-    public void addEdge(int n, int m)
+        node[n].setValue(0);
+        this.numberEdges--;
+    }*/
+    public void addEdge(int a, int b)
     {
-        
-    }
-    public void removeEdge(int n, int m)
+        edge[numberEdges] = new Edge(numberEdges,a,b);
+        node[a].connectionAdd();
+        node[b].connectionAdd();
+        this.numberEdges++;
+    }/*
+    public void removeEdge(int a, int b)
     {
-        
+      node[a].connectionMinus();
+      node[b].connectionMinus();
+      this.numberEdges--;
     }
     public boolean adjacent(int n, int m)
     {
         
     }
-    public void int getNeighbors(int n)
+    public void getNeighbors(int n)
     {
         
     }*/
@@ -36,13 +45,23 @@ public class GraphData
     {
         return numberNodes;
     }
-    public void resetData()
+    public int getNumberEdges()
     {
-        this.numberNodes = 0;
-        this.numberEdges = 0;
+        return numberEdges;
     }
     public int getNodeValue(int n)
     {
         return node[n].getValue();
+    }
+    /**
+     * Sets the maximum amount of nodes
+     */
+    public void setMaxNodes(int n)
+    {
+        maxNodes = n;
+    }
+    public int getMaxNodes()
+    {
+        return maxNodes;
     }
 }
