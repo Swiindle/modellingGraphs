@@ -8,6 +8,7 @@ public class VisualControl
     private GraphData gd = new GraphData();
     private Ball[] ball = new Ball[maxNumber];
     private Line[] line = new Line[maxNumber];
+    private Text[] text = new Text[maxNumber];
     // methods
     public VisualControl(int n)
     {
@@ -39,28 +40,12 @@ public class VisualControl
         // balls = nodes
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
         {
-            if(gd.getNodeValue(i) == 1)
-            {
-                ball[i] = new Ball(xPosNew,yPosNew,10,"red");
-
-            }
-            else if(gd.getNodeValue(i) == 2)
-            {
-                ball[i] = new Ball(xPosNew,yPosNew,10,"blue");
-
-            }
-            else if(gd.getNodeValue(i) == 3)
-            {
-                ball[i] = new Ball(xPosNew,yPosNew,10,"green");
-
-            }
-            else
-            {
-                ball[i] = new Ball(xPosNew,yPosNew,10,"yellow");
-            }
+            ball[i] = new Ball(xPosNew,yPosNew,20,gd.getNodeValue(i));
+            text[i] = new Text(gd.getNodeValue(i),xPosNew,yPosNew,20,"white");
+            ga.addText(text[i]);
             ga.addBall(ball[i]);
             xPosNew = (int)(Math.random()*((1000-1)+1))+1;
-            yPosNew = yPosNew + 50;
+            yPosNew = yPosNew + 80;
             if(i < 9)
             {
                 line[i] = new Line(xPosNew,yPosNew,xPosOld,yPosOld,2,"white");

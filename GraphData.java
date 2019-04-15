@@ -49,7 +49,10 @@ public class GraphData
     {
         return numberEdges;
     }
-    public int getNodeValue(int n)
+    /**
+     * Gets the value of a particular node
+     */
+    public String getNodeValue(int n)
     {
         return node[n].getValue();
     }
