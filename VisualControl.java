@@ -1,36 +1,43 @@
 import java.lang.Math;
 public class VisualControl
 {
+
     // instance variables
-    int maxNumber = 10;
+    int maxNodes = 10;                                  // the total number of nodes
     // instantiation
     private GameArena ga = new GameArena(1000,1000);
-    private GraphData gd = new GraphData();
-    private Ball[] ball = new Ball[maxNumber];
-    private Line[] line = new Line[maxNumber];
-    private Text[] text = new Text[maxNumber];
+    private GraphData gd = new GraphData(10);
+    private Ball[] ball = new Ball[maxNodes];
+    private Line[] line = new Line[maxNodes];
+    private Text[] text = new Text[maxNodes];
     // methods
     public VisualControl(int n)
     {
-        maxNumber = n;
+        maxNodes = n;
     }
     public void open()
     {
-        openData(maxNumber);
+        System.out.printf("max nodes %d\n",maxNodes);
+        openData(maxNodes);
         openVisual();
     }
+    /*
+     * Controls the data aspect of the software
+     * @param the number of nodes
+     */
     private void openData(int n)
     {
-        gd.setMaxNodes(n);
-        for(int i = 0 ; i < gd.getMaxNodes();i++)
+        gd.initialize();
+        for(int i = 0 ; i < maxNodes ; i++)
         {
-            gd.addNode(i);
-            if(i > 0)
-            {
-                gd.addEdge(i-1,i);
-            }
+            gd.addNode();
         }
+        gd.removeNode(2);
+        gd.addNode();
     }
+    /*
+     * Controls the visual aspect of the software.
+     */
     private void openVisual()
     {
         int xPosNew = 500;
@@ -38,10 +45,10 @@ public class VisualControl
         int xPosOld = xPosNew;
         int yPosOld = yPosNew;
         // balls = nodes
-        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
+        for(int i = 0 ; i < maxNodes ; i++)
         {
-            ball[i] = new Ball(xPosNew,yPosNew,20,gd.getNodeValue(i));
             text[i] = new Text(gd.getNodeValue(i),xPosNew,yPosNew,20,"white");
+            ball[i] = new Ball(xPosNew,yPosNew,20,gd.getNodeValue(i));
             ga.addText(text[i]);
             ga.addBall(ball[i]);
             xPosNew = (int)(Math.random()*((1000-1)+1))+1;

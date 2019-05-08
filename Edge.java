@@ -4,11 +4,9 @@ public class Edge
     int nodeOne;
     int nodeTwo;
     double length;
-    public Edge(int n, int a, int b)
+    public Edge(int n)
     {
         number = n;
-        nodeOne = a;
-        nodeTwo = b;
     }
     public int getNodeOne()
     {

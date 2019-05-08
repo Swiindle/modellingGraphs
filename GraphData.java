@@ -1,30 +1,74 @@
 import java.lang.Math;
 public class GraphData
 {
-    // instantiation
-    private Node[] node = new Node[10];
-    private Edge[] edge = new Edge[10];
     // instance variables
-    int numberNodes = 0;
-    int numberEdges = 0;
-    int maxNodes = 10;
+    private int numberNodes = 0;
+    private int numberEdges = 0;
+    private int maxNodes = 10;
+    // instantiation
+    private Node[] node = new Node[maxNodes];
+    private Edge[] edge = new Edge[maxNodes];
     // methods
-    public void addNode(int n)
+    public GraphData(int n)
     {
-        node[n] = new Node(n);
-        node[n].setValue((int)(Math.random()*((4-1)+1))+1);
-        this.numberNodes++;
-    }/*
+        maxNodes = n;
+    }
+    public void initialize()
+    {
+        for(int i = 0 ; i < maxNodes ; i++)
+        {
+            node[i] = new Node(i);
+            if(i > 0)
+            {
+                edge[i] = new Edge(i);
+            }
+        }
+    }
+    /*
+     * Adds a node to a list, adds into a node into the list
+     */
+    public void addNode()
+    {
+        for(int i = 0; i < maxNodes ; i++)
+        {
+            System.out.printf("looking at %d\n",i);
+            if(node[i].getNull() == true)
+            {
+                System.out.printf("node %d is created\n",i);
+                node[i].setValue((int)(Math.random()*((4-1)+1))+1);
+                node[i].toggleNull();
+                i = maxNodes;
+                numberNodes++;
+            }
+            else
+            {
+                System.out.printf("%d is full\n",i);
+            }
+        }
+    }
+    /*
+     * Removes a specific node
+     */
     public void removeNode(int n)
     {
-        node[n].setValue(0);
-        this.numberEdges--;
-    }*/
+        System.out.printf("removing %d\n",n);
+        if(n < maxNodes)
+        {
+            for(int i = 0 ; i < maxNodes ; i++)
+            {
+                if(n == i)
+                {
+                    node[i].toggleNull();
+                }
+            }
+        }
+        else
+        {
+            System.out.printf("you're trying to remove a number bigger than maxNodes\n");
+        }
+    }
     public void addEdge(int a, int b)
     {
-        edge[numberEdges] = new Edge(numberEdges,a,b);
-        node[a].connectionAdd();
-        node[b].connectionAdd();
         this.numberEdges++;
     }/*
     public void removeEdge(int a, int b)
@@ -55,13 +99,6 @@ public class GraphData
     public String getNodeValue(int n)
     {
         return node[n].getValue();
-    }
-    /**
-     * Sets the maximum amount of nodes
-     */
-    public void setMaxNodes(int n)
-    {
-        maxNodes = n;
     }
     public int getMaxNodes()
     {

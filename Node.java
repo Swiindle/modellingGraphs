@@ -4,6 +4,7 @@ public class Node
     int number;
     String value;
     int connection = 0;
+    boolean isNull = true;
     // methods
     public Node(int n)
     {
@@ -19,7 +20,7 @@ public class Node
     }
     public String getValue()
     {
-        return this.value;
+        return value;
     }
     public void setValue(int n)
     {
@@ -40,25 +41,21 @@ public class Node
             value = "yellow";
         }
     }
-    /*
-     * Mutator method, increments connection by one
-     */
-    public void connectionAdd()
+    public boolean getNull()
     {
-        this.connection++;
+        return isNull;
     }
-    /*
-     * Mutator method, decrements connection by one
-     */
-    public void connectionMinus()
+    public void toggleNull()
     {
-        this.connection--;
-    }
-    /*
-     * Acessor method gets number of connections
-     */
-    public int getConnection()
-    {
-        return this.connection;
+        if(isNull == true)
+        {
+            isNull = false;
+            System.out.printf("Node %d now has value\n", number);
+        }
+        else
+        {
+            isNull = true;
+            System.out.printf("Node %d now is empty\n", number);
+        }
     }
 }
