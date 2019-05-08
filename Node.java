@@ -3,7 +3,6 @@ public class Node
     // instance variables
     int number;
     String value;
-    int connection = 0;
     boolean isNull = true;
     // methods
     public Node(int n)
@@ -56,6 +55,17 @@ public class Node
         {
             isNull = true;
             System.out.printf("Node %d now is empty\n", number);
+        }
+    }
+    public boolean isConnected(Edge e)
+    {
+        if(number == e.getNodeOne() || number == e.getNodeTwo())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

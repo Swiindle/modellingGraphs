@@ -59,6 +59,7 @@ public class GraphData
                 if(n == i)
                 {
                     node[i].toggleNull();
+                    numberNodes--;
                 }
             }
         }
@@ -69,26 +70,71 @@ public class GraphData
     }
     public void addEdge(int a, int b)
     {
-        this.numberEdges++;
-    }/*
-    public void removeEdge(int a, int b)
-    {
-      node[a].connectionMinus();
-      node[b].connectionMinus();
-      this.numberEdges--;
+        for(int i = 0; i < maxNodes ; i++)
+        {
+            System.out.printf("looking at %d\n",i);
+            if(edge[i].getNull() == true)
+            {
+                System.out.printf("edge %d is created\n",i);
+                edge[i].setNodeOne(a);
+                edge[i].setNodeTwo(b);
+                edge[i].toggleNull();
+                i = maxNodes;
+                numberEdges++;
+            }
+            else
+            {
+                System.out.printf("%d is full\n",i);
+            }
+        }
     }
-    public boolean adjacent(int n, int m)
+    public void removeEdge(int n)
     {
-        
+        System.out.printf("removing %d\n",n);
+        if(n < maxNodes)
+        {
+            for(int i = 0 ; i < maxNodes ; i++)
+            {
+                if(n == i)
+                {
+                    edge[i].toggleNull();
+                    numberEdges--;
+                }
+            }
+        }
+        else
+        {
+            System.out.printf("you're trying to remove a number bigger than maxNodes\n");
+        }
     }
-    public void getNeighbors(int n)
+    public boolean adjacent(Node a, Node b)
     {
-        
+        for(int i = 0 ; i < maxNodes ; i++)
+        {
+            if(a.isConnected(edge[i]) == true && b.isConnected(edge[i]) == true)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    /*public void getNeighbors(int n)
+    {
+        for(int i = 0 ; i < maxNodes ; i++)
+        {
+            
+        }
     }*/
+    /*
+     * Returns the number of nodes
+     */
     public int getNumberNodes()
     {
         return numberNodes;
     }
+    /*
+     * Returns the number of edges
+     */
     public int getNumberEdges()
     {
         return numberEdges;

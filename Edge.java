@@ -1,6 +1,7 @@
 public class Edge
 {
     int number;
+    boolean isNull = true;
     int nodeOne;
     int nodeTwo;
     double length;
@@ -59,5 +60,22 @@ public class Edge
             return true;
         }
         return false;
+    }
+    public boolean getNull()
+    {
+        return isNull;
+    }
+    public void toggleNull()
+    {
+        if(isNull == true)
+        {
+            isNull = false;
+            System.out.printf("Node %d now has value\n", number);
+        }
+        else
+        {
+            isNull = true;
+            System.out.printf("Node %d now is empty\n", number);
+        }
     }
 }

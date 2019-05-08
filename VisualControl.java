@@ -4,6 +4,7 @@ public class VisualControl
 
     // instance variables
     int maxNodes = 10;                                  // the total number of nodes
+    int currentGraph = 0;                               // the current graph the visualizer is viewing
     // instantiation
     private GameArena ga = new GameArena(1000,1000);
     private GraphData gd = new GraphData(10);
@@ -45,7 +46,11 @@ public class VisualControl
         int xPosOld = xPosNew;
         int yPosOld = yPosNew;
         // balls = nodes
-        for(int i = 0 ; i < maxNodes ; i++)
+        if(gd.getNumberNodes() == 0)
+        {
+            System.out.printf("THERE ARE NO NODES, can't visualize\n");
+        }
+        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
         {
             text[i] = new Text(gd.getNodeValue(i),xPosNew,yPosNew,20,"white");
             ball[i] = new Ball(xPosNew,yPosNew,20,gd.getNodeValue(i));
