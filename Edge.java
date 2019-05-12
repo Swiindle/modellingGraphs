@@ -17,13 +17,13 @@ public class Edge
     {
         return nodeTwo;
     }
-    public void setNodeOne(int n)
+    public void setNodeOne(Node n)
     {
-        nodeOne = n;
+        nodeOne = n.getNumber();
     }
-    public void setNodeTwo(int n)
+    public void setNodeTwo(Node n)
     {
-        nodeTwo = n;
+        nodeTwo = n.getNumber();
     }
     public void setLength(double n)
     {
@@ -39,13 +39,13 @@ public class Edge
      */
     public int getNode(int n)
     {
-        if(nodeOne == n)
-        {
-            return nodeTwo;
-        }
-        else if(nodeTwo == n)
+        if(n == 1)
         {
             return nodeOne;
+        }
+        else if(n == 2)
+        {
+            return nodeTwo;
         }
         System.out.printf("should not get here\n");
         return 1;
@@ -65,17 +65,17 @@ public class Edge
     {
         return isNull;
     }
-    public void toggleNull()
+    public void toggleNull(Boolean b)
     {
-        if(isNull == true)
+        if(b == false)
         {
             isNull = false;
-            System.out.printf("Node %d now has value\n", number);
+            System.out.printf("Edge %d now has value\n", number);
         }
         else
         {
             isNull = true;
-            System.out.printf("Node %d now is empty\n", number);
+            System.out.printf("Edge %d now is empty\n", number);
         }
     }
 }

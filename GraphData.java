@@ -18,25 +18,22 @@ public class GraphData
         for(int i = 0 ; i < maxNodes ; i++)
         {
             node[i] = new Node(i);
-            if(i > 0)
-            {
-                edge[i] = new Edge(i);
-            }
+            edge[i] = new Edge(i);
         }
     }
     /*
      * Adds a node to a list, adds into a node into the list
      */
-    public void addNode()
+    public void addNode(String s)
     {
         for(int i = 0; i < maxNodes ; i++)
         {
-            System.out.printf("looking at %d\n",i);
+            System.out.printf("looking at node %d\n",i);
             if(node[i].getNull() == true)
             {
                 System.out.printf("node %d is created\n",i);
-                node[i].setValue((int)(Math.random()*((4-1)+1))+1);
-                node[i].toggleNull();
+                node[i].setValue(s);
+                node[i].toggleNull(false);
                 i = maxNodes;
                 numberNodes++;
             }
@@ -51,14 +48,14 @@ public class GraphData
      */
     public void removeNode(int n)
     {
-        System.out.printf("removing %d\n",n);
+        System.out.printf("removing node %d\n",n);
         if(n < maxNodes)
         {
             for(int i = 0 ; i < maxNodes ; i++)
             {
                 if(n == i)
                 {
-                    node[i].toggleNull();
+                    node[i].toggleNull(true);
                     numberNodes--;
                 }
             }
@@ -72,32 +69,32 @@ public class GraphData
     {
         for(int i = 0; i < maxNodes ; i++)
         {
-            System.out.printf("looking at %d\n",i);
+            System.out.printf("looking at edge %d\n",i);
             if(edge[i].getNull() == true)
             {
                 System.out.printf("edge %d is created\n",i);
-                edge[i].setNodeOne(a);
-                edge[i].setNodeTwo(b);
-                edge[i].toggleNull();
+                edge[i].setNodeOne(node[a]);
+                edge[i].setNodeTwo(node[b]);
+                edge[i].toggleNull(false);
                 i = maxNodes;
                 numberEdges++;
             }
             else
             {
-                System.out.printf("%d is full\n",i);
+                System.out.printf("edge %d is full\n",i);
             }
         }
     }
     public void removeEdge(int n)
     {
-        System.out.printf("removing %d\n",n);
+        System.out.printf("removing edge %d\n",n);
         if(n < maxNodes)
         {
             for(int i = 0 ; i < maxNodes ; i++)
             {
-                if(n == i)
+                if(n == i && edge[i].getNull() == false)
                 {
-                    edge[i].toggleNull();
+                    edge[i].toggleNull(true);
                     numberEdges--;
                 }
             }
@@ -105,6 +102,28 @@ public class GraphData
         else
         {
             System.out.printf("you're trying to remove a number bigger than maxNodes\n");
+        }
+    }
+    public void resetEdges()
+    {
+        numberEdges = 0;
+        for(int i = 0 ; i < maxNodes ; i++)
+        {
+            if(edge[i].getNull() == false)
+            {
+                edge[i].toggleNull(true);
+            }
+        }
+    }
+    public void resetNodes()
+    {
+        numberNodes = 0;
+        for(int i = 0 ; i < maxNodes ; i++)
+        {
+            if(node[i].getNull() == false)
+            {
+                node[i].toggleNull(true);
+            }
         }
     }
     public boolean adjacent(Node a, Node b)
@@ -145,6 +164,10 @@ public class GraphData
     public String getNodeValue(int n)
     {
         return node[n].getValue();
+    }
+    public int getEdgeValue(int n, int m)
+    {
+        return edge[n].getNode(m);
     }
     public int getMaxNodes()
     {

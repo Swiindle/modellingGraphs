@@ -21,32 +21,17 @@ public class Node
     {
         return value;
     }
-    public void setValue(int n)
+    public void setValue(String s)
     {
-        if(n == 1)
-        {
-            value = "red";
-        }
-        else if(n == 2)
-        {
-            value = "blue";
-        }
-        else if(n == 3)
-        {
-            value = "green";
-        }
-        else if(n == 4)
-        {
-            value = "yellow";
-        }
+        value = s;
     }
     public boolean getNull()
     {
         return isNull;
     }
-    public void toggleNull()
+    public void toggleNull(Boolean b)
     {
-        if(isNull == true)
+        if(b == false)
         {
             isNull = false;
             System.out.printf("Node %d now has value\n", number);

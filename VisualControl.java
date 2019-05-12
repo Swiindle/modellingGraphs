@@ -4,7 +4,6 @@ public class VisualControl
 
     // instance variables
     int maxNodes = 10;                                  // the total number of nodes
-    int currentGraph = 0;                               // the current graph the visualizer is viewing
     // instantiation
     private GameArena ga = new GameArena(1000,1000);
     private GraphData gd = new GraphData(10);
@@ -18,57 +17,113 @@ public class VisualControl
     }
     public void open()
     {
-        System.out.printf("max nodes %d\n",maxNodes);
-        openData(maxNodes);
-        openVisual();
-    }
-    /*
-     * Controls the data aspect of the software
-     * @param the number of nodes
-     */
-    private void openData(int n)
-    {
+        int currentGraph = 0;                               // the current graph the visualizer is viewing
         gd.initialize();
-        for(int i = 0 ; i < maxNodes ; i++)
-        {
-            gd.addNode();
-        }
-        gd.removeNode(2);
-        gd.addNode();
+        openGraphDataOne();
+        openVisualOne();
     }
-    /*
-     * Controls the visual aspect of the software.
-     */
-    private void openVisual()
+    private void openGraphDataOne()
     {
-        int xPosNew = 500;
-        int yPosNew = 10;
-        int xPosOld = xPosNew;
-        int yPosOld = yPosNew;
-        // balls = nodes
-        if(gd.getNumberNodes() == 0)
+        int nodes = 4;
+        String valueNode = "A";
+        gd.resetNodes();
+        gd.resetEdges();
+        for(int i = 0 ; i < nodes ; i++)
         {
-            System.out.printf("THERE ARE NO NODES, can't visualize\n");
+            gd.addNode(valueNode);
+            if(i == 1)
+            {
+                valueNode = "B";
+            }
+            if(i == 2)
+            {
+                valueNode = "C";
+            }
+            else
+            {
+                valueNode = "D";
+            }
+        }
+        gd.addEdge(0,1);
+        gd.addEdge(0,2);
+        gd.addEdge(1,3);
+        gd.addEdge(2,3);
+    }
+    private void openVisualOne()
+    {
+        int nodes = 4;
+        double xPos = 150;
+        double yPos = 150;
+        double xPosOld = xPos;
+        double yPosOld = yPos;
+        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
+        {
+            ball[i] = new Ball(xPos,yPos,20,"red");
+            text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos-10,30,"white");
+            if(i == 1)
+            {
+                xPos = -350;
+                yPos = yPos + 500;
+            }
+            xPos = xPos + 500;
+        }
+        for(int i = 0 ; i < gd.getNumberEdges() ; i++)
+        {
+            line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+        }
+        for(int i = 0 ; i < gd.getNumberEdges() ; i++)
+        {
+            ga.addLine(line[i]);
         }
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
         {
-            text[i] = new Text(gd.getNodeValue(i),xPosNew,yPosNew,20,"white");
-            ball[i] = new Ball(xPosNew,yPosNew,20,gd.getNodeValue(i));
-            ga.addText(text[i]);
             ga.addBall(ball[i]);
-            xPosNew = (int)(Math.random()*((1000-1)+1))+1;
-            yPosNew = yPosNew + 80;
-            if(i < 9)
-            {
-                line[i] = new Line(xPosNew,yPosNew,xPosOld,yPosOld,2,"white");
-                ga.addLine(line[i]);
-            }
-            xPosOld = xPosNew;
-            yPosOld = yPosNew;
+            ga.addText(text[i]);
         }
         while(true)
         {
-            ga.update();
+          ga.update();
         }
     }
+    /*
+    private void openGraphDataTwp()
+    {
+        
+    }
+    private void openVisualTwo()
+    {
+        
+    }
+    private void openGraphDataThree()
+    {
+        
+    }
+    private void openVisualThree()
+    {
+        
+    }
+    private void openGraphDataFour()
+    {
+        
+    }
+    private void openVisualFour()
+    {
+        
+    }
+    private void openGraphDataFive()
+    {
+        
+    }
+    private void openVisualFive()
+    {
+        
+    }*/
+    /*
+     private void openGraphDataCustom()
+     {
+     }
+     private void openVisualCustom()
+     {
+     }
+     */
 }
