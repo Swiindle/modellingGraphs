@@ -4,6 +4,7 @@ public class Node
     int number;
     String value;
     boolean isNull = true;
+    int connections;
     // methods
     public Node(int n)
     {

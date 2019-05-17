@@ -4,14 +4,14 @@ public class GraphData
     // instance variables
     private int numberNodes = 0;
     private int numberEdges = 0;
-    private int maxNodes = 10;
+    private int maxNodes = 20;
     // instantiation
     private Node[] node = new Node[maxNodes];
     private Edge[] edge = new Edge[maxNodes];
     // methods
-    public GraphData(int n)
+    public GraphData()
     {
-        maxNodes = n;
+        maxNodes = 20;
     }
     public void initialize()
     {
@@ -137,13 +137,14 @@ public class GraphData
         }
         return false;
     }
-    /*public void getNeighbors(int n)
+    public void getNeighbors()
     {
-        for(int i = 0 ; i < maxNodes ; i++)
-        {
-            
-        }
-    }*/
+        /*
+         * Returns an array. The array in this method contains all the nodes that this
+         * node is connected to.
+         */
+        System.out.printf("hello\n");
+    }
     /*
      * Returns the number of nodes
      */
