@@ -28,18 +28,18 @@ public class GraphData
     {
         for(int i = 0; i < maxNodes ; i++)
         {
-            System.out.printf("looking at node %d\n",i);
+            //System.out.printf("looking at node %d\n",i);
             if(node[i].getNull() == true)
             {
-                System.out.printf("node %d is created\n",i);
                 node[i].setValue(s);
                 node[i].toggleNull(false);
+                System.out.printf("node %d is created with value %s\n",i,node[i].getValue());
                 i = maxNodes;
                 numberNodes++;
             }
             else
             {
-                System.out.printf("%d is full\n",i);
+                //System.out.printf("%d is full\n",i);
             }
         }
     }
@@ -69,19 +69,19 @@ public class GraphData
     {
         for(int i = 0; i < maxNodes ; i++)
         {
-            System.out.printf("looking at edge %d\n",i);
+            //System.out.printf("looking at edge %d\n",i);
             if(edge[i].getNull() == true)
             {
-                System.out.printf("edge %d is created\n",i);
                 edge[i].setNodeOne(node[a]);
                 edge[i].setNodeTwo(node[b]);
                 edge[i].toggleNull(false);
+                System.out.printf("edge %d is created connecting %d and %d\n",i,edge[i].getNodeOne(),edge[i].getNodeTwo());
                 i = maxNodes;
                 numberEdges++;
             }
             else
             {
-                System.out.printf("edge %d is full\n",i);
+                //System.out.printf("edge %d is full\n",i);
             }
         }
     }

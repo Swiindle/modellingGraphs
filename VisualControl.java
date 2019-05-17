@@ -25,8 +25,6 @@ public class VisualControl implements ActionListener
     }
     public void open()
     {
-        
-        System.out.printf("maxnodes %d\n",maxNodes);
         // CONTROL FRAME
         frame.setSize(400,400);                   // sets the dimensions of the frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   // frame closes when close
@@ -59,7 +57,7 @@ public class VisualControl implements ActionListener
         frame.setVisible(true);                                 // makes frame visible
         // Graph Data
         gd.initialize();
-        System.out.printf("Current graph: %d\n",currentGraph);
+        System.out.printf("VC - Current graph: %d\n",currentGraph);
         openGraph(currentGraph);
         // Game Arena
         while(true)
@@ -81,30 +79,30 @@ public class VisualControl implements ActionListener
         }
         else if(action.getSource() == b[2])
         {
-            System.out.printf("Previous graph");
+            System.out.printf("Previous graph\n");
             if(currentGraph <= 0)
             {
-                System.out.printf("There are no more graphs");
+                System.out.printf("ERROR:There are no more graphs\n");
             }
             else
             {
                 currentGraph--;
+                System.out.printf("VC - Current graph: %d\n",currentGraph);
                 openGraph(currentGraph);
-                System.out.printf("Current graph: %d\n",currentGraph);
             }
         }
         else
         {
-            System.out.printf("next graph");
+            System.out.printf("next graph\n");
             if(currentGraph == 6)
             {
-                System.out.printf("There are no more graphs");
+                System.out.printf("ERROR: There are no more graphs\n");
             }
             else
             {
                 currentGraph++;
+                System.out.printf("VC - Current graph: %d\n",currentGraph);
                 openGraph(currentGraph);
-                System.out.printf("Current graph: %d\n",currentGraph);
             }
         }
     }
@@ -119,6 +117,27 @@ public class VisualControl implements ActionListener
             openGraphDataOne();
             openVisualOne();
         }
+        if(n == 2)
+        {
+            openGraphDataTwo();
+            openVisualTwo();
+        }
+        /*
+        if(n == 3)
+        {
+            openHome();
+        }
+        if(n == 4)
+        {
+            openGraphDataOne();
+            openVisualOne();
+        }
+        if(n == 5)  // custom graph
+        {
+            openGraphDataTwo();
+            
+        }
+        */
     }
     private void openHome()
     {
@@ -142,7 +161,7 @@ public class VisualControl implements ActionListener
             {
                 valueNode = "B";
             }
-            if(i == 2)
+            else if(i == 2)
             {
                 valueNode = "C";
             }
@@ -191,15 +210,99 @@ public class VisualControl implements ActionListener
             ga.addText(text[i]);
         }
     }
-    /*
-    private void openGraphDataTwp()
+    private void openGraphDataTwo()
     {
+        int nodes = 5;                      // there are 5 nodes in this graph
+        int connections = nodes;            // each node is connected each other node
+        String valueNode = "E";
         
+        gd.resetNodes();
+        gd.resetEdges();
+        
+        // adding nodes
+        for(int currentNodeIndex = 0 ; currentNodeIndex < nodes ; currentNodeIndex++)
+        {
+            int pointerNodeIndex = currentNodeIndex + 1;
+            if(currentNodeIndex == 0)
+            {
+                valueNode = "E";
+            }
+            if(currentNodeIndex == 1)
+            {
+                valueNode = "F";
+            }
+            if(currentNodeIndex == 2)
+            {
+                valueNode = "G";
+            }
+            if(currentNodeIndex == 3)
+            {
+                valueNode = "H";
+            }
+            if(currentNodeIndex == 4)
+            {
+                valueNode = "I";
+            }
+            gd.addNode(valueNode);
+
+            while(pointerNodeIndex < connections)
+            {
+                if(pointerNodeIndex != currentNodeIndex)
+                {
+                    gd.addEdge(currentNodeIndex,pointerNodeIndex);
+                }
+                pointerNodeIndex++;
+            }
+        }
     }
+    
     private void openVisualTwo()
     {
+        double xPos = 500;
+        double yPos = 200;
         
+        removeAllGameArena();
+        
+        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
+        {
+            if(i == 1)
+            {
+                xPos = 250;
+                yPos = 500;
+            }
+            if(i == 2)
+            {
+                xPos = 750;
+                yPos = 500;
+            }
+            if(i == 3)
+            {
+                xPos = 400;
+                yPos = 800;
+            }
+            if(i == 4)
+            {
+                xPos = 600;
+                yPos = 800;
+            }
+            ball[i] = new Ball(xPos,yPos,20,"red");
+            text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos-10,30,"white");
+        }
+        for(int i = 0 ; i < gd.getNumberEdges() ; i++)
+        {
+            line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+        }
+        for(int i = 0 ; i < gd.getNumberEdges() ; i++)
+        {
+            ga.addLine(line[i]);
+        }
+        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
+        {
+            ga.addBall(ball[i]);
+            ga.addText(text[i]);
+        }
     }
+    /*
     private void openGraphDataThree()
     {
         
@@ -234,7 +337,7 @@ public class VisualControl implements ActionListener
      */
     private void removeAllGameArena()
     {
-        System.out.printf("should be removing everything\n");
+        System.out.printf("Removing all GA elements\n");
         for(int i = 0 ; i < maxNodes ; i++)
         {
             ga.removeText(text[i]);
