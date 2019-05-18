@@ -1,6 +1,7 @@
 public class Edge
 {
     int number;
+    String type;
     boolean isNull = true;
     int nodeOne;
     int nodeTwo;
@@ -8,6 +9,29 @@ public class Edge
     public Edge(int n)
     {
         number = n;
+    }
+    public void setType(String s)
+    {
+        if(s.equals("normal") == true)
+        {
+            type = s;
+        }
+        else if(s.equals("directed") == true)
+        {
+            type = s;
+        }
+        else if(s.equals("selfarc") == true)
+        {
+            type = s;
+        }
+        else
+        {
+            System.out.printf("Node type not valid\n");
+        }
+    }
+    public String getType()
+    {
+        return type;
     }
     public int getNodeOne()
     {
@@ -48,7 +72,7 @@ public class Edge
             return nodeTwo;
         }
         System.out.printf("should not get here\n");
-        return 1;
+        return -1;
     }
     /**
      * Checks to see if the edge is between two nodes

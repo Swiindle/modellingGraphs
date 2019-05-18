@@ -11,18 +11,22 @@ public class VisualControl implements ActionListener
     private JPanel panel = new JPanel();                            // panel
     private GridLayout layout = new GridLayout(2,2);                // gridlayout, 8x8
     private JButton[] b = new JButton[4];
-    private GameArena ga = new GameArena(1000,1000);
+    private GameArena ga = new GameArena(1000,800);
     private GraphData gd = new GraphData();
     
     private Ball[] ball = new Ball[maxNodes];
     private Line[] line = new Line[maxNodes];
     private Text[] text = new Text[maxNodes];
+    private Arrow[] arrow = new Arrow[maxNodes];
     
     // methods
     public VisualControl()
     {
         maxNodes = 20;
     }
+    /**
+     * Puts together all the classes and initializes everything necessary.
+     */
     public void open()
     {
         // CONTROL FRAME
@@ -57,6 +61,7 @@ public class VisualControl implements ActionListener
         frame.setVisible(true);                                 // makes frame visible
         // Graph Data
         gd.initialize();
+        
         System.out.printf("VC - Current graph: %d\n",currentGraph);
         openGraph(currentGraph);
         // Game Arena
@@ -106,6 +111,9 @@ public class VisualControl implements ActionListener
             }
         }
     }
+    /**
+     * Function for controlling which current graph is currently opened
+     */
     public void openGraph(int n)
     {
         if(n == 0)
@@ -122,11 +130,12 @@ public class VisualControl implements ActionListener
             openGraphDataTwo();
             openVisualTwo();
         }
-        /*
         if(n == 3)
         {
-            openHome();
+            openGraphDataThree();
+            openVisualThree();
         }
+        /*
         if(n == 4)
         {
             openGraphDataOne();
@@ -142,8 +151,10 @@ public class VisualControl implements ActionListener
     private void openHome()
     {
         removeAllGameArena();
-        text[0] = new Text("HOME",500,500,50,"red");
+        text[0] = new Text("SCC110 Graphs",220,220,80,"red");
+        text[1] = new Text("please use the control panel",200,500,50,"white");
         ga.addText(text[0]);
+        ga.addText(text[1]);
     }
 
     private void openGraphDataOne()
@@ -170,25 +181,22 @@ public class VisualControl implements ActionListener
                 valueNode = "D";
             }
         }
-        gd.addEdge(0,1);
-        gd.addEdge(0,2);
-        gd.addEdge(1,3);
-        gd.addEdge(2,3);
+        gd.addEdge(0,1,"normal");
+        gd.addEdge(0,2,"normal");
+        gd.addEdge(1,3,"normal");
+        gd.addEdge(2,3,"normal");
     }
     private void openVisualOne()
     {
-        int nodes = 4;
         double xPos = 150;
         double yPos = 150;
-        double xPosOld = xPos;
-        double yPosOld = yPos;
         
         removeAllGameArena();
         
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
         {
             ball[i] = new Ball(xPos,yPos,20,"red");
-            text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos-10,30,"white");
+            text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos+10,30,"white");
             if(i == 1)
             {
                 xPos = -350;
@@ -198,11 +206,25 @@ public class VisualControl implements ActionListener
         }
         for(int i = 0 ; i < gd.getNumberEdges() ; i++)
         {
-            line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            if((gd.getEdgeType(i)).equals("normal") == true)
+            {
+                line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+            else
+            {
+                arrow[i] = new Arrow(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
         }
         for(int i = 0 ; i < gd.getNumberEdges() ; i++)
         {
-            ga.addLine(line[i]);
+            if((gd.getEdgeType(i)).equals("normal") == true)
+            {
+                ga.addLine(line[i]);
+            }
+            else
+            {
+                ga.addArrow(arrow[i]);
+            }
         }
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
         {
@@ -249,7 +271,7 @@ public class VisualControl implements ActionListener
             {
                 if(pointerNodeIndex != currentNodeIndex)
                 {
-                    gd.addEdge(currentNodeIndex,pointerNodeIndex);
+                    gd.addEdge(currentNodeIndex,pointerNodeIndex,"normal");
                 }
                 pointerNodeIndex++;
             }
@@ -259,7 +281,7 @@ public class VisualControl implements ActionListener
     private void openVisualTwo()
     {
         double xPos = 500;
-        double yPos = 200;
+        double yPos = 100;
         
         removeAllGameArena();
         
@@ -268,33 +290,132 @@ public class VisualControl implements ActionListener
             if(i == 1)
             {
                 xPos = 250;
-                yPos = 500;
+                yPos = 400;
             }
             if(i == 2)
             {
-                xPos = 750;
-                yPos = 500;
+                xPos = xPos + 500;
             }
             if(i == 3)
             {
                 xPos = 400;
-                yPos = 800;
+                yPos = 700;
             }
             if(i == 4)
             {
-                xPos = 600;
-                yPos = 800;
+                xPos = xPos+200;
             }
             ball[i] = new Ball(xPos,yPos,20,"red");
-            text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos-10,30,"white");
+            text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos+10,30,"white");
         }
         for(int i = 0 ; i < gd.getNumberEdges() ; i++)
         {
-            line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            if((gd.getEdgeType(i)).equals("normal") == true)
+            {
+                line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+            else
+            {
+                arrow[i] = new Arrow(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
         }
         for(int i = 0 ; i < gd.getNumberEdges() ; i++)
         {
-            ga.addLine(line[i]);
+            if((gd.getEdgeType(i)).equals("normal") == true)
+            {
+                ga.addLine(line[i]);
+            }
+            else
+            {
+                ga.addArrow(arrow[i]);
+            }
+        }
+        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
+        {
+            ga.addBall(ball[i]);
+            ga.addText(text[i]);
+        }
+    }
+    private void openGraphDataThree()
+    {
+        gd.resetNodes();
+        gd.resetEdges();
+        
+        int nodes = 4;
+        String valueNode = "J";
+        
+        gd.resetNodes();
+        gd.resetEdges();
+        
+        for(int i = 0 ; i < nodes ; i++)
+        {
+            gd.addNode(valueNode);
+            if(i == 1)
+            {
+                valueNode = "K";
+            }
+            else if(i == 2)
+            {
+                valueNode = "L";
+            }
+            else
+            {
+                valueNode = "M";
+            }
+        }
+        gd.addEdge(0,1,"directed");
+        gd.addEdge(1,2,"directed");
+        gd.addEdge(2,3,"directed");
+        gd.addEdge(3,0,"directed");
+    }
+    private void openVisualThree()
+    {
+        double xPos = 500;
+        double yPos = 100;
+        
+        removeAllGameArena();
+        
+        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
+        {
+            if(i == 1)
+            {
+                xPos = 200;
+                yPos = 300;
+            }
+            if(i == 2)
+            {
+                xPos = 500;
+                yPos = 600;
+            }
+            if(i == 3)
+            {
+                xPos = 700;
+                yPos = 300;
+            }
+            ball[i] = new Ball(xPos,yPos,20,"red");
+            text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos+10,30,"white");
+        }
+        for(int i = 0 ; i < gd.getNumberEdges() ; i++)
+        {
+            if((gd.getEdgeType(i)).equals("normal") == true)
+            {
+                line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+            else
+            {
+                arrow[i] = new Arrow(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+        }
+        for(int i = 0 ; i < gd.getNumberEdges() ; i++)
+        {
+            if((gd.getEdgeType(i)).equals("normal") == true)
+            {
+                ga.addLine(line[i]);
+            }
+            else
+            {
+                ga.addArrow(arrow[i]);
+            }
         }
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
         {
@@ -303,14 +424,6 @@ public class VisualControl implements ActionListener
         }
     }
     /*
-    private void openGraphDataThree()
-    {
-        
-    }
-    private void openVisualThree()
-    {
-        
-    }
     private void openGraphDataFour()
     {
         
@@ -335,14 +448,19 @@ public class VisualControl implements ActionListener
      {
      }
      */
+    /**
+     * Removes all Game Arena elements from the screen, useful before moving to a new graph.
+     */
     private void removeAllGameArena()
     {
         System.out.printf("Removing all GA elements\n");
         for(int i = 0 ; i < maxNodes ; i++)
         {
+            arrow[i] = new Arrow(10,10,10,10,1,"black");
             ga.removeText(text[i]);
             ga.removeLine(line[i]);
             ga.removeBall(ball[i]);
+            ga.removeArrow(arrow[i]);
         }
     }
 }

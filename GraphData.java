@@ -65,7 +65,7 @@ public class GraphData
             System.out.printf("you're trying to remove a number bigger than maxNodes\n");
         }
     }
-    public void addEdge(int a, int b)
+    public void addEdge(int a, int b, String type)
     {
         for(int i = 0; i < maxNodes ; i++)
         {
@@ -74,6 +74,7 @@ public class GraphData
             {
                 edge[i].setNodeOne(node[a]);
                 edge[i].setNodeTwo(node[b]);
+                edge[i].setType(type);
                 edge[i].toggleNull(false);
                 System.out.printf("edge %d is created connecting %d and %d\n",i,edge[i].getNodeOne(),edge[i].getNodeTwo());
                 i = maxNodes;
@@ -169,6 +170,10 @@ public class GraphData
     public int getEdgeValue(int n, int m)
     {
         return edge[n].getNode(m);
+    }
+    public String getEdgeType(int n)
+    {
+        return edge[n].getType();
     }
     public int getMaxNodes()
     {

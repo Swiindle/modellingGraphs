@@ -19,6 +19,15 @@ public class Arrow
     private double arrowHeadPosition; // The position of the arrowheads, as a proportion of the line length (percentage)
     private String colour;            // The colour of this Arrow
 
+    
+    /**
+     * Obtains the 3 lines that make up the arrow
+     * @return Line[] representing the arrow head
+     */
+    public Line getArrowAsLines(int n) {
+        return line[n];
+    }
+    
     /**
      * Obtains the X coordinte of the start of this arrow.
      * @return the X coordinte of the start of this arrow within the GameArena.
@@ -156,7 +165,7 @@ public class Arrow
      * @param arena The game arena to add this arrow to.
      *
      */
-    public Arrow(double startX, double startY, double endX, double endY, double w, String col, GameArena arena)
+    public Arrow(double startX, double startY, double endX, double endY, double w, String col)
     {
         xStart = startX;
         yStart = startY;
@@ -167,10 +176,9 @@ public class Arrow
         arrowHeadLength = 20.0;
 
         // Create three line instances - initially equal, but then update two to form the head of the arrow.
-        for (int i=0; i<line.length; i++)
+        for (int i=0; i<3; i++)
         {
             line[i] = new Line(xStart, yStart, xEnd, yEnd, width, colour);
-            arena.addLine(line[i]);
         }
 
         setArrowHeadPosition(100.0);
