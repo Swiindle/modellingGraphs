@@ -577,6 +577,48 @@ public class GameArena
             removeLine(arrowLines[i]);
         }
     }
+    
+    /**
+     * Adds arrow to GameArena
+     * @param a
+     */
+    public void addSelfArc(SelfArc sa)
+    {
+        if (getObjectCount() > MAXIMUM_OBJECTS)
+        {
+            System.out.println("\n\n");
+            System.out.println(" ********************************************************* ");
+            System.out.println(" ***** Only 100000 Objects Supported per Game Arena! ***** ");
+            System.out.println(" ********************************************************* ");
+            System.out.println("\n");
+            System.out.println("-- Joe\n\n");
+            
+            System.exit(0);
+        }
+        else
+        {
+            Ball[] selfBalls = new Ball[2];
+            for (int i = 0; i < 2; i++)
+            {
+                selfBalls[i] = sa.getBallsFromSelfArc(i);
+                addBall(selfBalls[i]);
+            }
+        }
+    }
+    
+    /**
+     * Removes arrow from GameArena
+     * @param a
+     */
+    public void removeSelfArc(SelfArc sa)
+    {
+        Ball[] selfBalls = new Ball[2];
+        for (int i = 0; i < 2; i++)
+        {
+            selfBalls[i] = sa.getBallsFromSelfArc(i);
+            removeBall(selfBalls[i]);
+        }
+    }
 
   	/**
      * Update the window to reflect all graphical objects added to this GameArena.

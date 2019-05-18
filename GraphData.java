@@ -72,9 +72,8 @@ public class GraphData
             //System.out.printf("looking at edge %d\n",i);
             if(edge[i].getNull() == true)
             {
-                edge[i].setNodeOne(node[a]);
-                edge[i].setNodeTwo(node[b]);
                 edge[i].setType(type);
+                edge[i].setNodes(node[a],node[b]);
                 edge[i].toggleNull(false);
                 System.out.printf("edge %d is created connecting %d and %d\n",i,edge[i].getNodeOne(),edge[i].getNodeTwo());
                 i = maxNodes;

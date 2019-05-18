@@ -18,6 +18,7 @@ public class VisualControl implements ActionListener
     private Line[] line = new Line[maxNodes];
     private Text[] text = new Text[maxNodes];
     private Arrow[] arrow = new Arrow[maxNodes];
+    private SelfArc[] selfarc = new SelfArc[maxNodes];
     
     // methods
     public VisualControl()
@@ -135,17 +136,22 @@ public class VisualControl implements ActionListener
             openGraphDataThree();
             openVisualThree();
         }
-        /*
         if(n == 4)
         {
-            openGraphDataOne();
-            openVisualOne();
+            openGraphDataFour();
+            openVisualFour();
         }
+        /*
         if(n == 5)  // custom graph
         {
             openGraphDataTwo();
             
         }
+         /*
+         if(n == 6)
+         {
+         
+         }
         */
     }
     private void openHome()
@@ -338,9 +344,6 @@ public class VisualControl implements ActionListener
     }
     private void openGraphDataThree()
     {
-        gd.resetNodes();
-        gd.resetEdges();
-        
         int nodes = 4;
         String valueNode = "J";
         
@@ -423,15 +426,66 @@ public class VisualControl implements ActionListener
             ga.addText(text[i]);
         }
     }
-    /*
     private void openGraphDataFour()
     {
+        int nodes = 4;
+        String valueNode = "J";
         
+        gd.resetNodes();
+        gd.resetEdges();
+        
+        for(int i = 0 ; i < nodes ; i++)
+        {
+            gd.addNode(valueNode);
+            if(i == 1)
+            {
+                valueNode = "K";
+            }
+            else if(i == 2)
+            {
+                valueNode = "L";
+            }
+            else
+            {
+                valueNode = "M";
+            }
+        }
     }
     private void openVisualFour()
     {
+        double xPos = 500;
+        double yPos = 100;
         
+        removeAllGameArena();
+        
+        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
+        {
+            if(i == 1)
+            {
+                xPos = 200;
+                yPos = 300;
+            }
+            if(i == 2)
+            {
+                xPos = 500;
+                yPos = 600;
+            }
+            if(i == 3)
+            {
+                xPos = 700;
+                yPos = 300;
+            }
+            ball[i] = new Ball(xPos,yPos,20,"red");
+            text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos+10,30,"white");
+        }
+        for(int i = 0 ; i < gd.getNumberNodes() ; i++)
+        {
+            ga.addBall(ball[i]);
+            ga.addText(text[i]);
+            ga.addSelfArc(selfarc[i]);
+        }
     }
+    /*
     private void openGraphDataFive()
     {
         
@@ -456,11 +510,16 @@ public class VisualControl implements ActionListener
         System.out.printf("Removing all GA elements\n");
         for(int i = 0 ; i < maxNodes ; i++)
         {
+            Rectangle rect = new Rectangle(500,400,1000,1000,"black");
             arrow[i] = new Arrow(10,10,10,10,1,"black");
+            selfarc[i] = new SelfArc(10,10,50,"black");
+            
             ga.removeText(text[i]);
             ga.removeLine(line[i]);
             ga.removeBall(ball[i]);
             ga.removeArrow(arrow[i]);
+            ga.removeSelfArc(selfarc[i]);
+            ga.addRectangle(rect);
         }
     }
 }

@@ -1,11 +1,12 @@
 public class Edge
 {
     int number;
-    String type;
-    boolean isNull = true;
     int nodeOne;
     int nodeTwo;
-    double length;
+    //double length;
+    String type;
+    boolean isNull = true;
+    
     public Edge(int n)
     {
         number = n;
@@ -41,14 +42,22 @@ public class Edge
     {
         return nodeTwo;
     }
-    public void setNodeOne(Node n)
+    /**
+     * This method should always come before Node Two
+     */
+    public void setNodes(Node a, Node b)
     {
-        nodeOne = n.getNumber();
+        if(type.equals("selfarc") == true && a.getNumber() != b.getNumber())
+        {
+            System.out.printf("This edge is a selfarc, both nodes need to be the same\n");
+        }
+        else
+        {
+            nodeOne = a.getNumber();
+            nodeTwo = b.getNumber();
+        }
     }
-    public void setNodeTwo(Node n)
-    {
-        nodeTwo = n.getNumber();
-    }
+    /*
     public void setLength(double n)
     {
         n = length;
@@ -56,7 +65,7 @@ public class Edge
     public double getLength()
     {
         return length;
-    }
+    }*/
     /**
      * Gets the opposite node
      * @param node you want from
