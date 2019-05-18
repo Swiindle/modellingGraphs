@@ -174,6 +174,14 @@ public class GraphData
     {
         return edge[n].getType();
     }
+    public void setEdgeDirection(int n , String s)
+    {
+        edge[n].setDirection(s);
+    }
+    public String getEdgeDirection(int n)
+    {
+        return edge[n].getDirection();
+    }
     public int getMaxNodes()
     {
         return maxNodes;

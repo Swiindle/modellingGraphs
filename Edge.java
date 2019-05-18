@@ -1,11 +1,13 @@
 public class Edge
 {
-    int number;
-    int nodeOne;
-    int nodeTwo;
+    private int number;
+    private int nodeOne;
+    private int nodeTwo;
     //double length;
     String type;
+    private String direction;           // The direction of the self arc
     boolean isNull = true;
+    
     
     public Edge(int n)
     {
@@ -33,6 +35,30 @@ public class Edge
     public String getType()
     {
         return type;
+    }
+    /**
+     * Obtains the size of this Ball.
+     * @return the diameter of this Ball,in pixels.
+     */
+    public String getDirection()
+    {
+        return direction;
+    }
+    
+    /**
+     * Changes the size of this Ball to the given value.
+     * @param s The new size of the Ball.
+     */
+    public void setDirection(String s)
+    {
+        if(s.equals("up") == true || s.equals("right") == true || s.equals("left") == true || s.equals("down") == true)
+        {
+            direction = s;
+        }
+        else
+        {
+            System.out.printf("Cannot set %s direction to this type\n",s);
+        }
     }
     public int getNodeOne()
     {

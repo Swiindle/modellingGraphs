@@ -216,9 +216,28 @@ public class VisualControl implements ActionListener
             {
                 line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
             }
-            else
+            else if((gd.getEdgeType(i)).equals("directed") == true)
             {
                 arrow[i] = new Arrow(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+            else
+            {
+                if((gd.getEdgeDirection(i)).equals("up") == true)
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition() + 20,20,"white");
+                }
+                else if((gd.getEdgeDirection(i)).equals("left"))
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition() - 20 ,ball[gd.getEdgeValue(i,2)].getYPosition(),20,"white");
+                }
+                else if((gd.getEdgeDirection(i)).equals("right"))
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition()+ 20,ball[gd.getEdgeValue(i,2)].getYPosition(),20,"white");
+                }
+                else
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition()-20,20,"white");
+                }
             }
         }
         for(int i = 0 ; i < gd.getNumberEdges() ; i++)
@@ -227,9 +246,13 @@ public class VisualControl implements ActionListener
             {
                 ga.addLine(line[i]);
             }
-            else
+            else if((gd.getEdgeType(i)).equals("directed") == true)
             {
                 ga.addArrow(arrow[i]);
+            }
+            else
+            {
+                ga.addSelfArc(selfarc[i]);
             }
         }
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
@@ -320,9 +343,28 @@ public class VisualControl implements ActionListener
             {
                 line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
             }
-            else
+            else if((gd.getEdgeType(i)).equals("directed") == true)
             {
                 arrow[i] = new Arrow(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+            else
+            {
+                if((gd.getEdgeDirection(i)).equals("up") == true)
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition() + 20,20,"white");
+                }
+                else if((gd.getEdgeDirection(i)).equals("left"))
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition() - 20 ,ball[gd.getEdgeValue(i,2)].getYPosition(),20,"white");
+                }
+                else if((gd.getEdgeDirection(i)).equals("right"))
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition()+ 20,ball[gd.getEdgeValue(i,2)].getYPosition(),20,"white");
+                }
+                else
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition()-20,20,"white");
+                }
             }
         }
         for(int i = 0 ; i < gd.getNumberEdges() ; i++)
@@ -331,9 +373,13 @@ public class VisualControl implements ActionListener
             {
                 ga.addLine(line[i]);
             }
-            else
+            else if((gd.getEdgeType(i)).equals("directed") == true)
             {
                 ga.addArrow(arrow[i]);
+            }
+            else
+            {
+                ga.addSelfArc(selfarc[i]);
             }
         }
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
@@ -404,9 +450,13 @@ public class VisualControl implements ActionListener
             {
                 line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
             }
-            else
+            else if((gd.getEdgeType(i)).equals("directed") == true)
             {
                 arrow[i] = new Arrow(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+            else
+            {
+                selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
             }
         }
         for(int i = 0 ; i < gd.getNumberEdges() ; i++)
@@ -415,9 +465,28 @@ public class VisualControl implements ActionListener
             {
                 ga.addLine(line[i]);
             }
-            else
+            else if((gd.getEdgeType(i)).equals("directed") == true)
             {
                 ga.addArrow(arrow[i]);
+            }
+            else
+            {
+                if((gd.getEdgeDirection(i)).equals("up") == true)
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition() + 20,20,"white");
+                }
+                else if((gd.getEdgeDirection(i)).equals("left"))
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition() - 20 ,ball[gd.getEdgeValue(i,2)].getYPosition(),20,"white");
+                }
+                else if((gd.getEdgeDirection(i)).equals("right"))
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition()+ 20,ball[gd.getEdgeValue(i,2)].getYPosition(),20,"white");
+                }
+                else
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition()-20,20,"white");
+                }
             }
         }
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
@@ -429,6 +498,7 @@ public class VisualControl implements ActionListener
     private void openGraphDataFour()
     {
         int nodes = 4;
+        int edges = 7;
         String valueNode = "J";
         
         gd.resetNodes();
@@ -450,6 +520,16 @@ public class VisualControl implements ActionListener
                 valueNode = "M";
             }
         }
+        for(int i = 0 ; i < 3 ; i++) // adding edges 0-2 (3 edges)
+        {
+            int j = i + 1;
+            gd.addEdge(i,j,"directed");
+        }
+        gd.addEdge(0,3,"normal"); // 4th edge ([3])
+        gd.addEdge(1,1,"selfarc"); // 5th edge
+        gd.setEdgeDirection(4,"left");
+        gd.addEdge(3,3,"selfarc"); //6th edge
+        gd.setEdgeDirection(5,"right");
     }
     private void openVisualFour()
     {
@@ -477,6 +557,51 @@ public class VisualControl implements ActionListener
             }
             ball[i] = new Ball(xPos,yPos,20,"red");
             text[i] = new Text(gd.getNodeValue(i),xPos-10,yPos+10,30,"white");
+        }
+        for(int i = 0 ; i < gd.getNumberEdges() ; i++)
+        {
+            if((gd.getEdgeType(i)).equals("normal") == true)
+            {
+                line[i] = new Line(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+            else if((gd.getEdgeType(i)).equals("directed") == true)
+            {
+                arrow[i] = new Arrow(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,1)].getYPosition(),ball[gd.getEdgeValue(i,2)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition(),5,"white");
+            }
+            else
+            {
+                if((gd.getEdgeDirection(i)).equals("up") == true)
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition() + 20,20,"white");
+                }
+                else if((gd.getEdgeDirection(i)).equals("left"))
+                        {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition() - 20 ,ball[gd.getEdgeValue(i,2)].getYPosition(),20,"white");
+                }
+                else if((gd.getEdgeDirection(i)).equals("right"))
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition()+ 20,ball[gd.getEdgeValue(i,2)].getYPosition(),20,"white");
+                }
+                else
+                {
+                    selfarc[i] = new SelfArc(ball[gd.getEdgeValue(i,1)].getXPosition(),ball[gd.getEdgeValue(i,2)].getYPosition()-20,20,"white");
+                }
+            }
+        }
+        for(int i = 0 ; i < gd.getNumberEdges() ; i++)
+        {
+            if((gd.getEdgeType(i)).equals("normal") == true)
+            {
+                ga.addLine(line[i]);
+            }
+            else if((gd.getEdgeType(i)).equals("directed") == true)
+            {
+                ga.addArrow(arrow[i]);
+            }
+            else
+            {
+                ga.addSelfArc(selfarc[i]);
+            }
         }
         for(int i = 0 ; i < gd.getNumberNodes() ; i++)
         {

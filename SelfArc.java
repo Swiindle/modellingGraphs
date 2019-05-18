@@ -6,7 +6,6 @@ public class SelfArc
     private double yPosition;           // The Y coordinate of this Self Arc
     private double size;                // The diameter of this Self Arc
     private String colour;              // The colour of this Self Arc
-    private String direction;           // The direction of the self arc
 
     
     /**
@@ -79,31 +78,7 @@ public class SelfArc
     {
         return colour;
     }
-    
-    /**
-     * Obtains the size of this Ball.
-     * @return the diameter of this Ball,in pixels.
-     */
-    public String getDirection()
-    {
-        return direction;
-    }
-    
-    /**
-     * Changes the size of this Ball to the given value.
-     * @param s The new size of the Ball.
-     */
-    public void setDirection(String s)
-    {
-        if(s.equals("up") == true || s.equals("right") == true || s.equals("left") == true || s.equals("down") == true)
-        {
-            direction = s;
-        }
-        else
-        {
-            System.out.printf("Cannot set %s direction to this type\n",s);
-        }
-    }
+
     
     /**
      * Changes the colour of this Ball to the given value.
@@ -154,7 +129,7 @@ public class SelfArc
         colour = col;
         
 
-        ball[0] = new Ball(xPosition,yPosition,size*1.1,colour);
+        ball[0] = new Ball(xPosition,yPosition,size*1.3,colour);
         ball[1] = new Ball(xPosition,yPosition,size,"black");
     }
 }
