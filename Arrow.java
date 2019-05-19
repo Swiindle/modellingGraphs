@@ -22,6 +22,7 @@ public class Arrow
     
     /**
      * Obtains the 3 lines that make up the arrow
+     * @param n returns the value of
      * @return Line[] representing the arrow head
      */
     public Line getArrowAsLines(int n) {

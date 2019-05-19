@@ -1,6 +1,5 @@
 /**
- * Run this class to open the 'game'
- *
+ * Run this class to open the 'game'.
  */
 public class MainMethod
 {

@@ -10,6 +10,7 @@ public class SelfArc
     
     /**
      * Obtains the 3 lines that make up the arrow
+     * @param n returns the specific ball
      * @return Line[] representing the arrow head
      */
     public Ball getBallsFromSelfArc(int n) {
