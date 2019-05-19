@@ -81,7 +81,14 @@ public class VisualControl implements ActionListener
         }
         else if(action.getSource() == b[1])
         {
-            //gd.traverseGraph(currentGraph);
+            if(currentGraph != 0)
+            {
+                gd.traverseGraph(currentGraph);
+            }
+            else
+            {
+                System.out.printf("You cannot traverse the Home page\n");
+            }
         }
         else if(action.getSource() == b[2])
         {

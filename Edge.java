@@ -13,6 +13,10 @@ public class Edge
     {
         number = n;
     }
+    public int getNumber()
+    {
+        return number;
+    }
     public void setType(String s)
     {
         if(s.equals("normal") == true)
@@ -62,11 +66,23 @@ public class Edge
     }
     public int getNodeOne()
     {
-        return nodeOne;
+        if(isNull == true)
+        {
+            System.out.printf("Edge %d: Node One is empty\n",number);
+            return -1;
+        }
+        else
+            return nodeOne;
     }
     public int getNodeTwo()
     {
-        return nodeTwo;
+        if(isNull == true)
+        {
+            System.out.printf("Edge %d: Node Two is empty\n",number);
+            return -1;
+        }
+        else
+            return nodeTwo;
     }
     /**
      * This method should always come before Node Two
@@ -83,31 +99,30 @@ public class Edge
             nodeTwo = b.getNumber();
         }
     }
-    /*
-    public void setLength(double n)
-    {
-        n = length;
-    }
-    public double getLength()
-    {
-        return length;
-    }*/
     /**
      * Gets the opposite node
      * @param node you want from
      */
     public int getNode(int n)
     {
-        if(n == 1)
+        if(isNull == true)
         {
-            return nodeOne;
+            System.out.println("this edge is null at the momment");
+            return -1;
         }
-        else if(n == 2)
+        else
         {
-            return nodeTwo;
+            if(n == 1)
+            {
+                return nodeOne;
+            }
+            else if(n == 2)
+            {
+                return nodeTwo;
+            }
+            System.out.printf("should not get here\n");
+            return -1;
         }
-        System.out.printf("should not get here\n");
-        return -1;
     }
     /**
      * Checks to see if the edge is between two nodes

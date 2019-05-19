@@ -4,7 +4,7 @@ public class Node
     int number;
     String value;
     boolean isNull = true;
-    int connections;
+    int connections = 0;
     // methods
     public Node(int n)
     {
@@ -12,14 +12,19 @@ public class Node
     }
     public int getNumber()
     {
-        return this.number;
+        return number;
     }
     public void setNumber(int n)
     {
-        this.number = n;
+        number = n;
     }
     public String getValue()
     {
+        if(isNull == true)
+        {
+            System.out.println("this node is empty");
+            return " ";
+        }
         return value;
     }
     public void setValue(String s)
@@ -42,6 +47,24 @@ public class Node
             isNull = true;
             System.out.printf("Node %d now is empty\n", number);
         }
+    }
+    public int getConnections()
+    {
+        return connections;
+    }
+    
+    public void resetConnection()
+    {
+        connections = 0;
+    }
+    
+    public void addConnection()
+    {
+        connections++;
+    }
+    public void subtractConnection()
+    {
+        connections--;
     }
     public boolean isConnected(Edge e)
     {
