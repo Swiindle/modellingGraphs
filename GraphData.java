@@ -82,10 +82,17 @@ public class GraphData
                 edge[i].toggleNull(false);
                 edge[i].setType(type);
                 edge[i].setNodes(node[a],node[b]);
-                System.out.printf("edge %d is created connecting %d and %d\n",i,edge[i].getNodeOne(),edge[i].getNodeTwo());
+                System.out.printf("Edge %d is created connecting %d and %d and is type %s\n",i,edge[i].getNodeOne(),edge[i].getNodeTwo(),type);
                 i = maxNodes;
-                node[a].addConnection();
-                node[b].addConnection();
+                if(type.equals("directed"))
+                {
+                    node[a].addConnection();
+                }
+                else
+                {
+                    node[a].addConnection();
+                    node[b].addConnection();
+                }
                 numberEdges++;
             }
             else
@@ -201,11 +208,41 @@ public class GraphData
     
     public boolean adjacent(Node a, Node b)
     {
-        for(int i = 0 ; i < numberNodes ; i++)
+        boolean isAdjacent = false;
+        for(int i = 0 ; i < numberEdges ; i++)
         {
-            if(a.isConnected(edge[i]) == true && b.isConnected(edge[i]) == true)
+            if((edge[i].getType()).equals("selfarc") == false && a.getNumber() == b.getNumber())
             {
-                return true;
+                System.out.printf("1 Node %d is not connected to node %d\n",a.getNumber(),b.getNumber());
+                return false;
+            }
+            if((edge[i].getType()).equals("directed") == true)
+            {
+                System.out.printf("Edge %d connected Node %d and Node %d\n",edge[i].getNumber(),edge[i].getNodeOne(),edge[i].getNodeTwo());
+                if(a.isConnected(edge[i]) == true && b.isConnected(edge[i]) == true) // if connected to the same edge
+                {
+                    if(edge[i].getNodeOne() == b.getNumber() && edge[i].getNodeTwo() == a.getNumber())
+                    {
+                        System.out.printf("2 Node %d is not connected to node %d\n",a.getNumber(),b.getNumber());
+                        return false;
+                    }
+                    else
+                    {
+                        System.out.printf("True, Edge %d is directed, nodeOne is %d, nodeTwo is %d\n",edge[i].getNumber(),edge[i].getNodeOne(),edge[i].getNodeTwo());
+                        return true;
+                    }
+                }
+                else
+                {
+                    System.out.printf("3 Node %d is not connected to node %d\n",a.getNumber(),b.getNumber());
+                }
+            }
+            else
+            {
+                if(a.isConnected(edge[i]) == true && b.isConnected(edge[i]) == true) // if connected to the same edge
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -217,15 +254,22 @@ public class GraphData
     public int[] getNeighbours(Node thisNode)
     {
         System.out.printf("Getting Neighbours of Node %d ...\n",thisNode.getNumber());
-        int[] indexOfNeighbours = new int[thisNode.getConnections()]; // assume max amount of connections is 10
+        int[] indexOfNeighbours = new int[thisNode.getConnections()];
         int index = 0;
         for(int i = 0 ; i < numberNodes ; i++)
         {
-            if(adjacent(thisNode,node[i]) == true && i != thisNode.getNumber())
+            System.out.printf("Another Loop\nChecking if Node %d is adjacent to Node%d\n",thisNode.getNumber(),node[i].getNumber());
+            if(adjacent(thisNode,node[i]) == true)
             {
+                System.out.printf("Node %d is adjacent to Node %d\n",thisNode.getNumber(),node[i].getNumber());
                 indexOfNeighbours[index] = node[i].getNumber();
                 index++;
             }
+        }
+        System.out.printf("Node %d is neighbours with: \n",thisNode.getNumber());
+        for(int i = 0 ; i < thisNode.getConnections() ; i++)
+        {
+            System.out.printf("Node %d\n",indexOfNeighbours[i]);
         }
         return indexOfNeighbours;
     }
@@ -284,12 +328,11 @@ public class GraphData
     }
     public int traverseNode(int n, int[] visitedNodes, int[] neighbourNodes)
     {
+        System.out.printf("Size of visited nodes: %d \nSize of Neighbour nodes: %d \n",numberNodes,node[n].getConnections());
         int visit = -1;
         boolean contains = true;
-        //System.out.printf("Check - Node %d is neighbours with: \n",node[n].getNumber());
         for(int i = 0 ; i < node[n].getConnections() ; i++)
         {
-            //System.out.printf("Node %d\n",neighbourNodes[i]);
             if(contains == false)
             {
                 break;
